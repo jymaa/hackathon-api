@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String?
+}
+
+model Couvert {
+  id                    String                      @id @default(uuid())
+  link                  String
+  title                 String                      @unique
+  properties            Json
+  benefices             Json
+  cultureAdaptation     Json
+  nextCultureAdaptation Json
+  semiMode              Json
+  destructionMode       Json
+  comment               String
+  departments           DepartmentCouvertPractice[]
+}
+
+model CouvertMelange {
+  id                    String                      @id @default(uuid())
+  link                  String
+  title                 String                      @unique
+  properties            Json
+  benefices             Json
+  cultureAdaptation     Json
+  nextCultureAdaptation Json
+  semiMode              Json
+  destructionMode       Json
+  comment               String
+  departments           DepartmentCouvertPractice[]
+}
+
+model DepartmentCouvertPractice {
+  id               String          @id @default(uuid())
+  code             String
+  semiTypes        Json
+  couvertId        String?
+  couvert          Couvert?        @relation(fields: [couvertId], references: [id])
+  couvertMelangeId String?
+  couvertMelange   CouvertMelange? @relation(fields: [couvertMelangeId], references: [id])
+}

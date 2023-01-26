@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15.1
+    container_name: kouver-sql
+    ports:
+      - 5433:5432
+    restart: always
+    environment:
+      POSTGRES_DB: kouver
+      POSTGRES_USER: kouver
+      POSTGRES_PASSWORD: kouver
